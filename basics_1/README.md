@@ -307,9 +307,3 @@ telnet localhost 98
 
 When you type text in the Telnet terminal, it should appear in the Netcat listener terminal.
 
-### Git commit command
-
-```bash
-git add 2-port_listening_on_localhost
-git commit -m "implemented localhost port listener"
-```
