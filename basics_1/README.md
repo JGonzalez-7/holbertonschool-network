@@ -18,9 +18,13 @@ File: `0-change_your_home_IP`
 #!/usr/bin/env bash
 # Configures custom IP resolutions for localhost and facebook.com.
 
-sed -i 's/^127\.0\.0\.1[[:space:]]\+localhost/127.0.0.2 localhost/' /etc/hosts
-sed -i '/facebook\.com/d' /etc/hosts
-echo "8.8.8.8 facebook.com" >> /etc/hosts
+tmp_hosts="$(mktemp)"
+trap 'rm -f "$tmp_hosts"' EXIT
+
+sed -e 's/^127\.0\.0\.1[[:space:]]\+localhost/127.0.0.2 localhost/' \
+    -e '/facebook\.com/d' /etc/hosts > "$tmp_hosts"
+echo "8.8.8.8 facebook.com" >> "$tmp_hosts"
+cat "$tmp_hosts" > /etc/hosts
 ```
 
 Make it executable:
@@ -41,13 +45,23 @@ This task modifies the `/etc/hosts` file.
 
 The `/etc/hosts` file is used by your machine to manually map hostnames to IP addresses before asking DNS servers.
 
-This line:
+These lines:
 
 ```bash
-sed -i 's/^127\.0\.0\.1[[:space:]]\+localhost/127.0.0.2 localhost/' /etc/hosts
+tmp_hosts="$(mktemp)"
+trap 'rm -f "$tmp_hosts"' EXIT
 ```
 
-changes the `localhost` entry from:
+create a temporary file and remove it when the script exits.
+
+This command:
+
+```bash
+sed -e 's/^127\.0\.0\.1[[:space:]]\+localhost/127.0.0.2 localhost/' \
+    -e '/facebook\.com/d' /etc/hosts > "$tmp_hosts"
+```
+
+copies `/etc/hosts` into the temporary file, changes the `localhost` entry from:
 
 ```text
 127.0.0.1 localhost
@@ -59,21 +73,23 @@ to:
 127.0.0.2 localhost
 ```
 
-This line:
-
-```bash
-sed -i '/facebook\.com/d' /etc/hosts
-```
-
-removes any old `facebook.com` entry so you do not create duplicates.
+and removes any old `facebook.com` entry so you do not create duplicates.
 
 This line:
 
 ```bash
-echo "8.8.8.8 facebook.com" >> /etc/hosts
+echo "8.8.8.8 facebook.com" >> "$tmp_hosts"
 ```
 
 adds a new manual rule that makes `facebook.com` resolve to `8.8.8.8`.
+
+This line:
+
+```bash
+cat "$tmp_hosts" > /etc/hosts
+```
+
+writes the new content back into `/etc/hosts` without renaming the file. This avoids failures on systems where `/etc/hosts` is mounted and cannot be replaced by `sed -i`.
 
 Important: after testing, change `localhost` back to `127.0.0.1`, because many programs expect `localhost` to use the normal loopback address.
 
@@ -139,7 +155,7 @@ File: `1-show_attached_IPs`
 #!/usr/bin/env bash
 # Displays all active IPv4 addresses on the machine.
 
-ip -4 addr show up | awk '/inet / {print $2}' | cut -d/ -f1
+ifconfig | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
 ```
 
 Make it executable:
@@ -161,38 +177,26 @@ This script displays all active IPv4 addresses on the machine.
 This command:
 
 ```bash
-ip -4 addr show up
+ifconfig
 ```
 
-shows only IPv4 addresses from active network interfaces.
+shows network interface information.
 
-The `awk` part:
+The `grep` part:
 
 ```bash
-awk '/inet / {print $2}'
+grep -oP '(?<=inet\s)\d+(\.\d+){3}'
 ```
 
-finds lines that contain IPv4 addresses and prints the second field.
+extracts IPv4 addresses from the `ifconfig` output.
 
-Example line from `ip` output:
+Example line from `ifconfig` output:
 
 ```text
-inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic eth0
+inet 10.0.2.15  netmask 255.255.255.0  broadcast 10.0.2.255
 ```
 
-The second field is:
-
-```text
-10.0.2.15/24
-```
-
-Then this part:
-
-```bash
-cut -d/ -f1
-```
-
-removes the subnet suffix `/24`, leaving only the IP address:
+The extracted value is:
 
 ```text
 10.0.2.15

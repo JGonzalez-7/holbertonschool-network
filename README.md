@@ -66,7 +66,7 @@ sudo ./basics_1/2-port_listening_on_localhost
 - Ubuntu or another Linux environment with Bash.
 - `netstat` for `basics_0/4-TCP_and_UDP_ports`.
 - `ping` for `basics_0/5-is_the_host_on_the_network`.
-- `ip`, `awk`, and `cut` for `basics_1/1-show_attached_IPs`.
+- `ifconfig` and `grep` for `basics_1/1-show_attached_IPs`.
 - `nc` for `basics_1/2-port_listening_on_localhost`.
 - `sudo` for scripts that edit `/etc/hosts` or bind to privileged ports.
 
