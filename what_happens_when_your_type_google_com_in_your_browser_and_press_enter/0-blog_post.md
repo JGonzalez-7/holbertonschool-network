@@ -218,10 +218,3 @@ This article follows the request from the browser to the infrastructure and back
 ## Expected Output
 
 After publishing, the expected output is a public English-language article that explains the complete HTTPS request lifecycle and includes the Task 1 diagram. Replace the Medium or LinkedIn placeholder near the top with the published URL.
-
-## Git Commit Message
-
-```bash
-git add what_happens_when_your_type_google_com_in_your_browser_and_press_enter/0-blog_post.md
-git commit -m 'added Task 0: "What happens when..." blog post'
-```
