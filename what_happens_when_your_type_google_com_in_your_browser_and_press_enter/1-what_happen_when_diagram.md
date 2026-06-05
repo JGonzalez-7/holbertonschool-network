@@ -54,11 +54,3 @@ Browser -> DNS -> server IP:443 -> firewall -> TLS encryption
 ```
 
 The direct diagram URL works after `request_flow.svg` has been committed and pushed to the repository's `main` branch.
-
-## Git Commit Message
-
-```bash
-git add what_happens_when_your_type_google_com_in_your_browser_and_press_enter/1-what_happen_when_diagram.md \
-  what_happens_when_your_type_google_com_in_your_browser_and_press_enter/request_flow.svg
-git commit -m "added Task 1: \"Everything's better with a pretty diagram\""
-```
