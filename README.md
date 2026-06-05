@@ -14,10 +14,15 @@ This repository contains introductory networking projects for Holberton School. 
 │   ├── 4-TCP_and_UDP_ports
 │   ├── 5-is_the_host_on_the_network
 │   └── README.md
-└── basics_1
-    ├── 0-change_your_home_IP
-    ├── 1-show_attached_IPs
-    ├── 2-port_listening_on_localhost
+├── basics_1
+│   ├── 0-change_your_home_IP
+│   ├── 1-show_attached_IPs
+│   ├── 2-port_listening_on_localhost
+│   └── README.md
+└── what_happens_when_your_type_google_com_in_your_browser_and_press_enter
+    ├── 0-blog_post.md
+    ├── 1-what_happen_when_diagram.md
+    ├── request_flow.svg
     └── README.md
 ```
 
@@ -60,6 +65,19 @@ sudo ./basics_1/0-change_your_home_IP
 ./basics_1/1-show_attached_IPs
 sudo ./basics_1/2-port_listening_on_localhost
 ```
+
+## What Happens When You Type `google.com`
+
+The `what_happens_when_your_type_google_com_in_your_browser_and_press_enter` directory follows an HTTPS request from the browser to the server infrastructure and back.
+
+| File | Description |
+| --- | --- |
+| `0-blog_post.md` | Detailed article about DNS, TCP/IP, firewalls, TLS, load balancing, web servers, application servers, databases, and browser rendering. |
+| `1-what_happen_when_diagram.md` | Request-flow diagram with Mermaid source and a step-by-step explanation. |
+| `request_flow.svg` | Shareable diagram illustrating the complete request and response path. |
+| `README.md` | Task answers, explanations, expected outputs, and Git commit commands. |
+
+The article and diagram can be viewed directly on GitHub after the directory is committed and pushed.
 
 ## Requirements
 
