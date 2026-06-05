@@ -71,20 +71,3 @@ GitHub renders the embedded SVG in both task files. The direct raw image URL bec
 ```text
 https://raw.githubusercontent.com/JGonzalez-7/holbertonschool-network/main/what_happens_when_your_type_google_com_in_your_browser_and_press_enter/request_flow.svg
 ```
-
-### Git Commit Message
-
-```bash
-git add what_happens_when_your_type_google_com_in_your_browser_and_press_enter/1-what_happen_when_diagram.md \
-  what_happens_when_your_type_google_com_in_your_browser_and_press_enter/request_flow.svg
-git commit -m "added Task 1: \"Everything's better with a pretty diagram\""
-```
-
-## Documentation Commit
-
-To commit the task files and both README updates together:
-
-```bash
-git add README.md what_happens_when_your_type_google_com_in_your_browser_and_press_enter
-git commit -m "added web request lifecycle article and diagram"
-```
